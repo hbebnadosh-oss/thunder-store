@@ -3,136 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر الرعدي أونلاين الأسطوري</title>
+    <title>مجموعة متاجر الرعدي العالمية الملكية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-gold: #ffb300;
-            --neon-gold-glow: 0 0 20px rgba(255, 179, 0, 0.6);
-            --bg-dark-heavy: #0a0b0e;
-            --bg-card-dark: #13161f;
-            --text-muted: #a0a5b5;
-            --danger-color: #ff3d00;
+            --gold-glow: 0 0 15px rgba(255, 179, 0, 0.4);
+            --bg-dark-heavy: #08090c;
+            --bg-card-dark: #11141d;
+            --text-muted: #8e94a5;
+            --danger-color: #ff3333;
             --success-color: #00e676;
             --info-color: #00b0ff;
-            --neon-green-glow: 0 0 20px rgba(0, 230, 118, 0.4);
+            --btn-active-glow: 0 0 10px rgba(255, 179, 0, 0.8);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; transition: all 0.2s ease; }
         body { background-color: var(--bg-dark-heavy); color: #ffffff; min-height: 100vh; overflow-x: hidden; }
 
-        /* --- شريط الإعلانات المتطور --- */
+        /* تأثير اللمس الفيزيائي للأزرار */
+        button, .cat-btn {
+            cursor: pointer;
+            position: relative;
+        }
+        button:active, .cat-btn:active {
+            transform: scale(0.95);
+            box-shadow: var(--btn-active-glow) !important;
+            filter: brightness(1.2);
+        }
+
+        /* شريط الإعلانات المتطور */
         .marquee-container {
-            background: linear-gradient(90deg, #000, #151105, #000);
+            background: linear-gradient(90deg, #000, #131007, #000);
             border-bottom: 1px solid var(--primary-gold);
-            padding: 12px 0; overflow: hidden; display: flex; width: 100%;
+            padding: 10px 0; overflow: hidden; display: flex; width: 100%;
         }
         .marquee-wrapper { display: flex; width: max-content; }
         .marquee-text {
-            font-weight: 900; font-size: 15px; color: #fff; text-shadow: var(--neon-gold-glow);
+            font-weight: 900; font-size: 14px; color: #fff; text-shadow: var(--gold-glow);
             animation: marqueeEffect 25s linear infinite; padding-left: 50px; white-space: nowrap;
         }
         .marquee-text span { color: var(--primary-gold); margin: 0 20px; }
         @keyframes marqueeEffect { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
 
-        /* --- الهيدر --- */
+        /* الهيدر */
         .global-navbar {
-            background-color: #040507; padding: 15px 4%; display: flex; justify-content: space-between;
+            background-color: #030406; padding: 15px 4%; display: flex; justify-content: space-between;
             align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary-gold);
-            box-shadow: 0 4px 25px rgba(0,0,0,0.7);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
         }
         .brand-logo { display: flex; align-items: center; gap: 12px; }
-        .falcon-logo {
-            width: 45px; height: 45px; background: var(--primary-gold);
-            clip-path: polygon(35% 0%, 70% 20%, 100% 40%, 65% 55%, 80% 75%, 45% 60%, 20% 90%, 30% 50%, 0% 30%);
-            filter: drop-shadow(0 0 8px #ffb300); animation: falconPulse 2s infinite alternate;
-        }
-        @keyframes falconPulse { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
-        .brand-logo h1 { font-size: 20px; font-weight: 900; color: #fff; }
-        .brand-logo h1 span { color: var(--primary-gold); text-shadow: var(--neon-gold-glow); }
+        .falcon-svg { width: 50px; height: 50px; filter: drop-shadow(0 0 6px var(--primary-gold)); }
+        .brand-logo h1 { font-size: 22px; font-weight: 900; color: #fff; }
+        .brand-logo h1 span { color: var(--primary-gold); text-shadow: var(--gold-glow); }
 
         .nav-controls { display: flex; align-items: center; gap: 12px; }
         .admin-nav-btn {
             background: rgba(0, 230, 118, 0.1); border: 1px solid var(--success-color); color: var(--success-color);
-            padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 700; cursor: pointer;
-            display: none; align-items: center; gap: 6px; box-shadow: var(--neon-green-glow); transition: 0.2s;
+            padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 700; display: none;
         }
         .admin-nav-btn:hover { background: var(--success-color); color: #000; }
         .user-badge { background: rgba(255, 179, 0, 0.07); border: 1px solid var(--primary-gold); padding: 6px 14px; border-radius: 50px; font-size: 13px; font-weight: 700; color: var(--primary-gold); }
 
-        /* --- أزرار عائمة (السلة والدردشة) --- */
+        /* الأزرار العائمة */
         .floating-cart-trigger {
             position: fixed; bottom: 30px; left: 30px; background: linear-gradient(135deg, #ffe082, var(--primary-gold));
             color: #000; border: none; width: 60px; height: 60px; border-radius: 50%;
-            box-shadow: var(--neon-gold-glow); cursor: pointer; z-index: 1500; display: flex; justify-content: center; align-items: center; font-size: 24px; transition: 0.3s;
+            box-shadow: var(--gold-glow); z-index: 1500; display: flex; justify-content: center; align-items: center; font-size: 24px;
         }
         .floating-chat-trigger {
             position: fixed; bottom: 105px; left: 30px; background: linear-gradient(135deg, #00b0ff, #0091ea);
             color: #fff; border: none; width: 60px; height: 60px; border-radius: 50%;
-            box-shadow: 0 0 15px rgba(0,176,255,0.5); cursor: pointer; z-index: 1500; display: flex; justify-content: center; align-items: center; font-size: 24px; transition: 0.3s;
+            box-shadow: 0 0 15px rgba(0,176,255,0.4); z-index: 1500; display: flex; justify-content: center; align-items: center; font-size: 24px;
         }
         .cart-badge-count { position: absolute; top: -2px; right: -2px; background: var(--danger-color); color: #fff; font-size: 12px; font-weight: 900; width: 22px; height: 22px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid var(--bg-dark-heavy); }
         .chat-alert-badge { display: none; position: absolute; top: -2px; right: -2px; background: red; width: 15px; height: 15px; border-radius: 50%; border: 2px solid #000; }
 
-        /* --- شبكة المنتجات والكروت --- */
+        /* قسم العروض والمنتجات */
         .category-container { padding: 20px 4% 10px; }
-        .category-title { font-size: 17px; font-weight: 800; margin-bottom: 15px; border-right: 4px solid var(--primary-gold); padding-right: 10px; }
+        .category-title { font-size: 18px; font-weight: 800; margin-bottom: 15px; border-right: 4px solid var(--primary-gold); padding-right: 10px; }
         .category-tabs { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; }
-        .cat-btn { padding: 10px 24px; background: var(--bg-card-dark); border: 1px solid #252936; color: #fff; border-radius: 50px; cursor: pointer; font-weight: 700; white-space: nowrap; }
-        .cat-btn.active, .cat-btn:hover { background: linear-gradient(135deg, #ffe082, var(--primary-gold)); color: #000; font-weight: 900; box-shadow: var(--neon-gold-glow); }
+        .cat-btn { padding: 10px 24px; background: var(--bg-card-dark); border: 1px solid #252936; color: #fff; border-radius: 50px; font-weight: 700; white-space: nowrap; }
+        .cat-btn.active, .cat-btn:hover { background: linear-gradient(135deg, #ffe082, var(--primary-gold)); color: #000; font-weight: 900; box-shadow: var(--gold-glow); }
 
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; padding: 20px 4%; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; padding: 20px 4%; }
         .product-card { background: var(--bg-card-dark); border: 1px solid #232736; border-radius: 18px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
         .stock-badge { position: absolute; top: 10px; right: 10px; padding: 3px 8px; border-radius: 8px; font-size: 11px; font-weight: 900; z-index: 10; }
-        .stock-in { background: rgba(0, 230, 118, 0.2); color: var(--success-color); border: 1px solid var(--success-color); }
-        .stock-out { background: rgba(255, 61, 0, 0.2); color: var(--danger-color); border: 1px solid var(--danger-color); }
-        .discount-badge { position: absolute; top: 10px; left: 10px; background: var(--danger-color); color: #fff; font-size: 11px; font-weight: 900; padding: 3px 8px; border-radius: 8px; z-index: 10; }
+        .stock-in { background: rgba(0, 230, 118, 0.15); color: var(--success-color); border: 1px solid var(--success-color); }
+        .stock-out { background: rgba(255, 61, 0, 0.15); color: var(--danger-color); border: 1px solid var(--danger-color); }
         
-        .image-wrapper { width: 100%; height: 170px; background: #fff; border-radius: 12px; display: flex; justify-content: center; align-items: center; padding: 8px; }
+        /* شارة العرض الغامزة والنابضة */
+        .offer-pulse-badge {
+            position: absolute; top: 10px; left: 10px; background: var(--danger-color); color: #fff;
+            font-size: 11px; font-weight: 900; padding: 3px 8px; border-radius: 8px; z-index: 10;
+            animation: pulseGlow 1s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 5px red; }
+            100% { transform: scale(1.08); opacity: 1; box-shadow: 0 0 15px red; }
+        }
+        
+        .image-wrapper { width: 100%; height: 180px; background: #fff; border-radius: 12px; display: flex; justify-content: center; align-items: center; padding: 8px; }
         .image-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .product-title { font-size: 14px; font-weight: 700; height: 40px; overflow: hidden; margin-top: 10px; }
-        .spec-item { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+        .product-title { font-size: 15px; font-weight: 700; height: 45px; overflow: hidden; margin-top: 10px; }
+        .spec-item { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
         .price-section { margin: 10px 0; text-align: center; background: rgba(255,255,255,0.02); padding: 6px; border-radius: 8px; }
-        .old-price { text-decoration: line-through; color: #6e7382; font-size: 11px; margin-left: 6px; }
-        .current-price { color: var(--primary-gold); font-weight: 900; font-size: 17px; }
+        .old-price { text-decoration: line-through; color: #6e7382; font-size: 12px; margin-left: 6px; }
+        .current-price { color: var(--primary-gold); font-weight: 900; font-size: 18px; }
         
         .quantity-controller { display: flex; justify-content: space-between; align-items: center; background: #090a0d; padding: 4px; border-radius: 10px; margin-bottom: 8px; }
-        .qty-action-btn { width: 28px; height: 28px; background: #1f2230; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
-        .action-button { width: 100%; padding: 12px; background: linear-gradient(135deg, #ffe082, var(--primary-gold)); color: #000; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.2s; }
+        .qty-action-btn { width: 30px; height: 30px; background: #1f2230; color: #fff; border: none; border-radius: 6px; font-weight: bold; }
+        .action-button { width: 100%; padding: 12px; background: linear-gradient(135deg, #ffe082, var(--primary-gold)); color: #000; border: none; border-radius: 10px; font-weight: 800; box-shadow: var(--gold-glow); }
         .action-button:disabled { background: #333 !important; color: #777 !important; cursor: not-allowed; box-shadow: none !important; }
 
-        /* --- النوافذ المنبثقة (المودالز) --- */
+        /* النوافذ المنبثقة */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 2500; justify-content: center; align-items: center; padding: 15px; }
-        .modal-card { background: var(--bg-card-dark); border: 2px solid var(--primary-gold); box-shadow: var(--neon-gold-glow); padding: 25px; border-radius: 24px; width: 100%; max-width: 550px; max-height: 85vh; overflow-y: auto; animation: modalFadeIn 0.3s ease; }
-        @keyframes modalFadeIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-card { background: var(--bg-card-dark); border: 2px solid var(--primary-gold); padding: 25px; border-radius: 24px; width: 100%; max-width: 550px; max-height: 90vh; overflow-y: auto; }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #232736; padding-bottom: 10px; }
 
         .form-group { margin-bottom: 12px; text-align: right; }
         .form-group label { display: block; font-size: 12px; color: var(--primary-gold); margin-bottom: 4px; font-weight: bold; }
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; background: #11131a; border: 1px solid #232736; border-radius: 8px; color: #fff; outline: none; }
 
-        /* --- الفاتورة الفاخرة الملكية --- */
-        .invoice-box { background: #fff; color: #000; padding: 25px; border-radius: 16px; border: 4px double #111; font-size: 14px; position: relative; margin-top: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        /* الفاتورة الملكية الفاخرة */
+        .invoice-box { background: #fff; color: #000; padding: 25px; border-radius: 16px; border: 4px double #111; font-size: 14px; margin-top: 15px; }
         .invoice-header { text-align: center; border-bottom: 3px solid #000; padding-bottom: 10px; margin-bottom: 15px; }
-        .invoice-logo { width: 60px; height: 60px; background: #000; clip-path: polygon(35% 0%, 70% 20%, 100% 40%, 65% 55%, 80% 75%, 45% 60%, 20% 90%, 30% 50%, 0% 30%); margin: 0 auto 5px; }
         .invoice-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
         .invoice-table th, .invoice-table td { border: 1px solid #ddd; padding: 8px; text-align: right; }
         .invoice-table th { background: #f2f2f2; font-weight: bold; }
-        .invoice-terms { background: #fff3e0; border-right: 5px solid #ff9100; padding: 10px; margin-top: 15px; font-size: 11px; font-weight: bold; border-radius: 4px; }
+        .invoice-terms { background: #fff3e0; border-right: 5px solid #ff9100; padding: 10px; margin-top: 15px; font-size: 11px; font-weight: bold; }
 
-        /* --- نظام الدردشة الحية المتكامل --- */
-        .chat-card { background: #0e1118; border: 2px solid #00b0ff; width: 100%; max-width: 400px; height: 500px; display: flex; flex-direction: column; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,176,255,0.3); }
+        /* نظام الدردشة الحية */
+        .chat-card { background: #0e1118; border: 2px solid #00b0ff; width: 100%; max-width: 420px; height: 500px; display: flex; flex-direction: column; border-radius: 20px; }
         .chat-body { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .chat-msg { max-width: 80%; padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.5; }
+        .chat-msg { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.5; }
         .chat-msg.server { background: #1b2230; align-self: flex-start; border-bottom-left-radius: 2px; color: #fff; }
         .chat-msg.client { background: #00b0ff; color: #000; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: bold; }
         .chat-footer { padding: 10px; display: flex; gap: 8px; border-top: 1px solid #232736; background: #07090e; }
 
-        /* --- لوحة الإدارة الكبرى والتحليلات --- */
-        .admin-dashboard { background: #060b11; border: 2px solid var(--success-color); box-shadow: var(--neon-green-glow); padding: 25px; border-radius: 24px; width: 100%; max-width: 1200px; max-height: 95vh; overflow-y: auto; position: relative; }
+        /* لوحة الإدارة الكبرى */
+        .admin-dashboard { background: #060b11; border: 2px solid var(--success-color); padding: 25px; border-radius: 24px; width: 100%; max-width: 1200px; max-height: 95vh; overflow-y: auto; position: relative; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .stat-card { background: #121824; border: 1px solid rgba(0, 230, 118, 0.3); padding: 15px; border-radius: 12px; text-align: center; }
-        .stat-card h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 5px; }
         .stat-card p { font-size: 24px; font-weight: 900; color: var(--success-color); }
         .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
         .dashboard-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(0, 230, 118, 0.15); padding: 20px; border-radius: 16px; }
@@ -140,10 +152,10 @@
         .mng-table { width: 100%; border-collapse: collapse; text-align: right; font-size: 13px; }
         .mng-table th, .mng-table td { padding: 10px; border-bottom: 1px solid #21262d; }
         .mng-table th { background: #161b22; color: var(--primary-gold); }
-        .btn-sm { padding: 4px 10px; border-radius: 6px; border: none; font-size: 11px; font-weight: bold; cursor: pointer; color: #fff; }
+        .btn-sm { padding: 6px 12px; border-radius: 6px; border: none; font-size: 11px; font-weight: bold; color: #fff; }
 
         .auth-overlay { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .auth-panel { background: var(--bg-card-dark); padding: 35px 25px; border-radius: 24px; width: 100%; max-width: 400px; text-align: center; border: 1px solid #232736; }
+        .auth-panel { background: var(--bg-card-dark); padding: 35px 25px; border-radius: 24px; width: 100%; max-width: 400px; text-align: center; border: 1px solid #232736; box-shadow: var(--gold-glow); }
     </style>
 </head>
 <body>
@@ -159,7 +171,7 @@
         <div class="auth-panel">
             <h2 id="authHeading" style="margin-bottom: 20px; font-weight: 900;">بوابة دخول <span>الرعدي</span></h2>
             <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="inputEmail" placeholder="example@mail.com"></div>
-            <div class="form-group"><label>اسم المستخدم (الـ Username)</label><input type="text" id="inputUsername" placeholder="اسم المستخدم"></div>
+            <div class="form-group"><label>اسم المستخدم</label><input type="text" id="inputUsername" placeholder="اسم المستخدم"></div>
             <div class="form-group"><label>كلمة المرور</label><input type="password" id="inputPassword" placeholder="••••••••••"></div>
             <button class="action-button" onclick="processAuth()">دخول آمن للمتجر ✨</button>
             <p style="margin-top: 15px; font-size: 13px; color: var(--text-muted);">
@@ -171,9 +183,17 @@
 
     <div id="storeContainer" style="display: none;">
         <nav class="global-navbar">
-            <div class="brand-logo"><div class="falcon-logo"></div><h1>الرعدي <span>أونلاين</span></h1></div>
+            <div class="brand-logo">
+                <svg class="falcon-svg" viewBox="0 0 100 100">
+                    <path d="M50,15 C40,30 20,35 5,45 C25,50 40,45 50,60 C60,45 75,50 95,45 C80,35 60,30 50,15 Z" fill="#ffb300"/>
+                    <path d="M50,60 C45,70 35,85 20,90 C40,80 45,75 50,70 C55,75 60,80 80,90 C65,85 55,70 50,60 Z" fill="#ffa000"/>
+                    <circle cx="50" cy="40" r="3" fill="#000"/>
+                </svg>
+                <h1>الرعدي <span>أونلاين</span></h1>
+            </div>
             <div class="nav-controls">
-                <button id="adminNavbarButton" class="admin-nav-btn" onclick="openAdminModal()">🛠️ لوحة الإدارة والتحكم الكامل</button>
+                <button id="userArchiveBtn" class="btn-sm" style="background: var(--info-color);" onclick="openUserOrdersArchive()">📦 أرشيف فواتيري</button>
+                <button id="adminNavbarButton" class="admin-nav-btn" onclick="openAdminModal()">🛠️ لوحة التحكم العام</button>
                 <div class="user-badge" id="usernameDisplay"></div>
             </div>
         </nav>
@@ -192,13 +212,13 @@
             <div class="modal-card">
                 <div class="modal-header">
                     <h3 style="color: var(--primary-gold); font-weight: 900;">🛒 سلة المشتريات والطلب الفوري</h3>
-                    <button style="background: var(--danger-color); color:#fff; border:none; padding:5px 12px; border-radius:8px; cursor:pointer;" onclick="closeModal('cartModal')">✖</button>
+                    <button style="background: var(--danger-color); color:#fff; border:none; padding:5px 12px; border-radius:8px;" onclick="closeModal('cartModal')">✖</button>
                 </div>
                 <div id="cartRowsContainer">السلة خالية حالياً!</div>
                 
-                <div style="margin: 15px 0; padding: 10px; background: rgba(255,255,255,0.02); border-radius: 10px;">
+                <div style="margin: 12px 0; padding: 10px; background: rgba(255,255,255,0.02); border-radius: 10px;">
                     <div class="form-group">
-                        <label>كود الخصم / القسيمة (إن وجد)</label>
+                        <label>كود الخصم / القسيمة</label>
                         <div style="display: flex; gap: 8px;">
                             <input type="text" id="couponInput" placeholder="أدخل كود الخصم">
                             <button class="btn-sm" style="background: var(--info-color); padding: 0 15px;" onclick="applyCoupon()">تطبيق</button>
@@ -219,7 +239,16 @@
                             <option value="international">شحن وتوصيل خارجي دولي +50 SR</option>
                         </select>
                     </div>
-                    <div class="form-group"><label>العنوان السكني بالتفصيل (المدينة / الشارع)</label><input type="text" id="orderAddress" placeholder="المحافظة - المديرية - اسم الشارع"></div>
+                    <div class="form-group"><label>العنوان السكني بالتفصيل</label><input type="text" id="orderAddress" placeholder="المحافظة - المدينة - الشارع"></div>
+                    
+                    <div class="form-group"><label>اختر طريقة السداد والدفع المعتمدة</label>
+                        <select id="paymentMethod" onchange="togglePaymentFields()">
+                            <option value="cod">💵 الدفع عند الاستلام (قانوني عند المعاينة)</option>
+                            <option value="alrajhi">🏦 تحويل مباشر عبر بنك الراجحي</option>
+                            <option value="card">💳 بطاقة ائتمانية (فيزا / ماستر كارد)</option>
+                        </select>
+                    </div>
+                    <div id="paymentDetailsArea" style="background: #090a0d; padding: 10px; border-radius: 8px; display: none; font-size: 12px; border: 1px dashed var(--primary-gold);"></div>
                 </div>
 
                 <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #232736; display: flex; justify-content: space-between; align-items: center;">
@@ -227,6 +256,16 @@
                     <span style="font-size: 22px; font-weight: 900; color: var(--primary-gold);"><span id="cartTotalSum">0</span> SR</span>
                 </div>
                 <button class="action-button" style="margin-top: 20px;" onclick="submitOrderToAdmin()">🚀 تأكيد الشراء وإصدار الفاتورة الملكية</button>
+            </div>
+        </div>
+
+        <div id="archiveModal" class="modal-overlay" onclick="if(event.target.id==='archiveModal') closeModal('archiveModal')">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <h3 style="color: var(--info-color);">📦 أرشيف جميع فواتير الشراء الخاصة بك</h3>
+                    <button style="background:var(--danger-color); color:#fff; border:none; padding:5px 12px; border-radius:8px;" onclick="closeModal('archiveModal')">✖</button>
+                </div>
+                <div id="userArchiveContainer" style="display:flex; flex-direction:column; gap:10px;">لا توجد فواتير سابقة لك.</div>
             </div>
         </div>
 
@@ -244,12 +283,10 @@
         <div id="chatModal" class="modal-overlay" onclick="if(event.target.id==='chatModal') closeModal('chatModal')">
             <div class="chat-card">
                 <div style="background: #00b0ff; color: #000; padding: 15px; font-weight: 900; display: flex; justify-content: space-between; border-top-left-radius: 18px; border-top-right-radius: 18px;">
-                    <span>💬 مركز الدعم والدردشة المباشرة لمتجر الرعدي</span>
+                    <span>💬 مركز المحادثة الفوري والمستقل</span>
                     <button style="background:none; border:none; font-weight:bold; cursor:pointer;" onclick="closeModal('chatModal')">✖</button>
                 </div>
-                <div class="chat-body" id="chatBodyContainer">
-                    <div class="chat-msg server">مرحباً بك في مركز خدمة عملاء الرعدي أونلاين. كيف يمكننا مساعدتك اليوم؟</div>
-                </div>
+                <div class="chat-body" id="chatBodyContainer"></div>
                 <div class="chat-footer">
                     <input type="text" id="chatMessageInput" placeholder="اكتب استفسارك هنا للمدير..." style="flex:1; padding:10px; background:#111; border:1px solid #333; color:#fff; border-radius:8px; outline:none;">
                     <button class="btn-sm" style="background:#00b0ff; color:#000; padding:0 15px; border-radius:8px;" onclick="sendClientChatMessage()">إرسال</button>
@@ -259,14 +296,25 @@
 
         <div id="adminModal" class="modal-overlay">
             <section class="admin-dashboard">
-                <button class="close-admin-btn" style="position:absolute; top:15px; left:15px; background:var(--danger-color); color:#fff; padding:6px 15px; border:none; border-radius:8px; cursor:pointer;" onclick="closeModal('adminModal')">✖ إغلاق الإدارة</button>
+                <button style="position:absolute; top:15px; left:15px; background:var(--danger-color); color:#fff; padding:6px 15px; border:none; border-radius:8px;" onclick="closeModal('adminModal')">✖ إغلاق الإدارة</button>
                 <h2 style="color: var(--success-color); font-weight: 900; margin-bottom: 20px;">🛠️ لوحة القيادة الشاملة لمدير المتجر الملكي 👑</h2>
                 
                 <div class="stats-grid">
-                    <div class="stat-card"><h3>إجمالي المشتركين بالمتجر 👥</h3><p id="statUsersCount">1</p></div>
+                    <div class="stat-card"><h3>إجمالي المشتركين بالمتجر 👥</h3><p id="statUsersCount">0</p></div>
                     <div class="stat-card"><h3>أرباح اليوم الحالي 💰</h3><p><span id="statRevenueDay">0</span> SR</p></div>
                     <div class="stat-card"><h3>أرباح الشهر الحالي 📈</h3><p><span id="statRevenueMonth">0</span> SR</p></div>
                     <div class="stat-card"><h3>أرباح السنة الكلية 🌍</h3><p><span id="statRevenueYear">0</span> SR</p></div>
+                </div>
+
+                <div class="dashboard-box" style="margin-bottom: 20px;">
+                    <h3 style="color: var(--primary-gold); margin-bottom: 10px;">🔍 نظام البحث السريع ومراجعة بيانات العملاء</h3>
+                    <input type="text" id="adminUserSearchInput" placeholder="أدخل اسم الزبون للبحث..." oninput="searchUsersDatabase()" style="width:100%; padding:10px; background:#111; border:1px solid #333; color:#fff; border-radius:8px;">
+                    <div class="management-table-wrapper">
+                        <table class="mng-table">
+                            <thead><tr><th>اسم المستخدم</th><th>البريد الإلكتروني</th><th>عدد فواتيره</th></tr></thead>
+                            <tbody id="adminUsersSearchTableBody"></tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="dashboard-grid">
@@ -276,12 +324,8 @@
                         <button class="action-button" style="background: var(--success-color); color: #000; margin-bottom: 15px;" onclick="createCategory()">بث القسم الجديد 🌐</button>
                         
                         <div class="form-group"><label>إنشاء كود خصم جديد</label><input type="text" id="newCouponCode" placeholder="ALRADI20"></div>
-                        <div class="form-group"><label>قيمة الخصم الثابت (SR)</label><input type="number" id="newCouponValue" value="10"></div>
+                        <div class="form-group"><label>قيمة الخصم الثابت (SR)</label><input type="number" id="newCouponValue" value="20"></div>
                         <button class="action-button" style="background: var(--info-color); color: #fff; margin-bottom: 15px;" onclick="createCoupon()">تفعيل كود الخصم 🎫</button>
-
-                        <div class="management-table-wrapper">
-                            <table class="mng-table"><thead><tr><th>القسم</th><th>الإجراء</th></tr></thead><tbody id="adminCatsTableBody"></tbody></table>
-                        </div>
                     </div>
 
                     <div class="dashboard-box">
@@ -290,25 +334,28 @@
                         <div class="form-group"><label>اسم المنتج الكامل</label><input type="text" id="adminProdName"></div>
                         <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
                             <div><label>السعر (SR)</label><input type="number" id="adminProdPrice"></div>
-                            <div><label>الخصم (%)</label><input type="number" id="adminProdDiscount" value="0"></div>
+                            <div><label>هل هو عرض مميز؟</label>
+                                <select id="adminProdIsOffer">
+                                    <option value="no">لا، منتج عادي</option>
+                                    <option value="yes">نعم، عرض غامز 🔥</option>
+                                </select>
+                            </div>
                             <div><label>المخزون (الكمية)</label><input type="number" id="adminProdStock" value="10"></div>
                         </div>
-                        <div class="form-group"><label>الألوان</label><input type="text" id="adminProdColor" placeholder="أسود، ذهبي"></div>
-                        <div class="form-group"><label>المواصفات</label><textarea id="adminProdSpecs" rows="1"></textarea></div>
+                        <div class="form-group"><label>الألوان والمواصفات</label><input type="text" id="adminProdSpecs" placeholder="اللون والمواصفات المتاحة"></div>
                         <div class="form-group"><label>رابط الصورة</label><input type="text" id="adminProdImg" value="https://images.unsplash.com/photo-1541643600914-78b084683601?w=500"></div>
                         <button class="action-button" style="background: var(--success-color); color: #000;" onclick="createNewProduct()">طرح المنتج في السوق فورا 📡</button>
                     </div>
 
                     <div class="dashboard-box">
-                        <h3 style="color: var(--info-color); margin-bottom: 12px;">💬 مركز إدارة المحادثات الحية</h3>
-                        <div id="adminChatLogContainer" style="height: 250px; overflow-y:auto; background:#111; padding:10px; border-radius:8px; margin-bottom:10px; font-size:12px;">
-                            لا توجد رسائل جديدة من العملاء حالياً.
-                        </div>
+                        <h3 style="color: var(--info-color); margin-bottom: 12px;">💬 مركز إدارة المحادثات الحية (الزبائن المنفصلين)</h3>
+                        <label style="font-size:11px; color:var(--primary-gold);">اختر الزبون للرد عليه منفصلاً:</label>
+                        <select id="adminTargetChatUserSelect" onchange="loadAdminChatWithSelectedUser()" style="width:100%; padding:8px; background:#111; color:#fff; border:1px solid #333; border-radius:6px; margin-bottom:10px;"></select>
+                        <div id="adminChatLogContainer" style="height: 180px; overflow-y:auto; background:#111; padding:10px; border-radius:8px; margin-bottom:10px; font-size:12px;"></div>
                         <div class="form-group">
-                            <label>الرد السريع المباشر للزبون الحالي</label>
-                            <input type="text" id="adminChatResponseInput" placeholder="اكتب ردك هنا...">
+                            <input type="text" id="adminChatResponseInput" placeholder="اكتب ردك للزبون المحدد...">
                         </div>
-                        <button class="action-button" style="background: var(--info-color); color:#fff;" onclick="sendAdminChatMessage()">إرسال الرد للعميل ✉️</button>
+                        <button class="action-button" style="background: var(--info-color); color:#fff;" onclick="sendAdminChatMessage()">إرسال الرد المباشر ✉️</button>
                     </div>
                 </div>
 
@@ -317,7 +364,7 @@
                     <div class="management-table-wrapper">
                         <table class="mng-table">
                             <thead>
-                                <tr><th>الصورة</th><th>الاسم</th><th>القسم</th><th>السعر</th><th>الخصم</th><th>الكمية المتاحة</th><th>التحكم</th></tr>
+                                <tr><th>الصورة</th><th>الاسم</th><th>القسم</th><th>السعر</th><th>النوع</th><th>الكمية المتاحة</th><th>التحكم</th></tr>
                             </thead>
                             <tbody id="adminProductsTableBody"></tbody>
                         </table>
@@ -326,7 +373,7 @@
 
                 <div class="dashboard-box" style="margin-top: 20px;">
                     <h3 style="color: var(--success-color); margin-bottom: 12px;">📥 فواتير المبيعات الواردة والأرشيف</h3>
-                    <div id="adminLiveOrdersBox" style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">في انتظار أول فاتورة شراء...</div>
+                    <div id="adminLiveOrdersBox" style="font-size: 13px; color: var(--text-muted); line-height: 1.6;"></div>
                 </div>
             </section>
         </div>
@@ -334,6 +381,24 @@
     </div>
 
     <script>
+        // تهيئة قواعد البيانات الدائمة في localStorage في حال كانت المرة الأولى للتشغيل
+        if (!localStorage.getItem('alradi_products')) {
+            const defaultProducts = [
+                { name: "هاتف الرعدي الذكي برو X", category: "هواتف", price: 2999, isOffer: "yes", stock: 5, specs: "أزرق ملكي - ذاكرة 512 جيجا", img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500" },
+                { name: "عطر الملكي ليميتد إديشن", category: "عطور", price: 520, isOffer: "no", stock: 10, specs: "رائحة العود الفاخر الأصيل", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=500" }
+            ];
+            localStorage.setItem('alradi_products', JSON.stringify(defaultProducts));
+        }
+        if (!localStorage.getItem('alradi_categories')) {
+            localStorage.setItem('alradi_categories', JSON.stringify(['الكل', 'هواتف', 'عطور']));
+        }
+        if (!localStorage.getItem('alradi_users')) {
+            localStorage.setItem('alradi_users', JSON.stringify([{ username: 'client', email: 'client@mail.com', pass: '123' }]));
+        }
+        if (!localStorage.getItem('alradi_orders')) localStorage.setItem('alradi_orders', JSON.stringify([]));
+        if (!localStorage.getItem('alradi_chats')) localStorage.setItem('alradi_chats', JSON.stringify({}));
+        if (!localStorage.getItem('alradi_revenue')) localStorage.setItem('alradi_revenue', JSON.stringify({ day: 0, month: 0, year: 0 }));
+
         let isSignUp = false;
         let selectedCategory = 'الكل';
         let userShoppingCart = [];
@@ -341,7 +406,6 @@
         let cardWidgetQuantities = {};
         let isManagerSession = false;
         let activeCouponDiscount = 0;
-        let currentActiveChatUser = 'client';
 
         function toggleAuth(signUpMode) {
             isSignUp = signUpMode;
@@ -350,7 +414,7 @@
             document.getElementById('switchAuthLink').innerText = signUpMode ? "تسجيل الدخول هنا" : "اضغط هنا للتسجيل";
         }
 
-        async function processAuth() {
+        function processAuth() {
             const email = document.getElementById('inputEmail').value.trim();
             const username = document.getElementById('inputUsername').value.trim();
             const pass = document.getElementById('inputPassword').value.trim();
@@ -364,23 +428,24 @@
                 return;
             }
 
-            const apiPath = isSignUp ? '/api/signup' : '/api/login';
-            try {
-                const response = await fetch(apiPath, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, pass, email })
-                });
-                const data = await response.json();
-                if(data.success) {
+            let users = JSON.stringify(localStorage.getItem('alradi_users'));
+            users = JSON.parse(localStorage.getItem('alradi_users'));
+
+            if (isSignUp) {
+                if (users.find(u => u.username === username)) return alert('اسم المستخدم مسجل مسبقاً!');
+                users.push({ username, email, pass });
+                localStorage.setItem('alradi_users', JSON.stringify(users));
+                alert('🎉 تم تسجيل حسابك بنجاح! يمكنك الدخول الآن.');
+                toggleAuth(false);
+            } else {
+                const match = users.find(u => u.username === username && u.pass === pass);
+                if (match) {
                     authenticatedUser = username;
                     isManagerSession = false;
                     enterStoreUI();
-                } else { alert(data.message); }
-            } catch (err) {
-                // تفعيل افتراضي في حال عدم وجود سيرفر نشط للمحاكاة والتصميم
-                authenticatedUser = username;
-                enterStoreUI();
+                } else {
+                    alert('❌ بيانات الدخول غير صحيحة!');
+                }
             }
         }
 
@@ -389,104 +454,136 @@
             document.getElementById('storeContainer').style.display = 'block';
             document.getElementById('usernameDisplay').innerText = isManagerSession ? `المدير: ${authenticatedUser} 👑` : `مرحباً: ${authenticatedUser} 👋`;
             document.getElementById('adminNavbarButton').style.display = isManagerSession ? 'flex' : 'none';
+            document.getElementById('userArchiveBtn').style.display = isManagerSession ? 'none' : 'block';
             
             refreshDataStream();
-            setInterval(refreshDataStream, 4000);
+            if (!isManagerSession) {
+                loadClientChatLogs();
+            }
         }
 
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
         function openAdminModal() { openModal('adminModal'); refreshDataStream(); }
 
-        async function refreshDataStream() {
-            try {
-                const response = await fetch('/api/data');
-                const serverDB = await response.json();
-                
-                // تحديث العدادات الإحصائية في لوحة المدير
-                if(document.getElementById('statUsersCount')) {
-                    document.getElementById('statUsersCount').innerText = serverDB.usersCount || 1;
-                    document.getElementById('statRevenueDay').innerText = serverDB.revenueDay || 0;
-                    document.getElementById('statRevenueMonth').innerText = serverDB.revenueMonth || 0;
-                    document.getElementById('statRevenueYear').innerText = serverDB.revenueYear || 0;
-                }
+        function togglePaymentFields() {
+            const method = document.getElementById('paymentMethod').value;
+            const area = document.getElementById('paymentDetailsArea');
+            if (method === 'cod') {
+                area.style.display = 'none';
+            } else if (method === 'alrajhi') {
+                area.style.display = 'block';
+                area.innerHTML = `💸 <strong>حساب بنك الراجحي المعتمد للرعدي:</strong><br>رقم الحساب: 1234-5678-9012<br>الآيبان: SA93ALRAJHI000012345678<br>⚠️ يرجى تحويل المبلغ وإرسال لقطة شاشة للمدير في المحادثة لسرعة التجهيز.`;
+            } else if (method === 'card') {
+                area.style.display = 'block';
+                area.innerHTML = `
+                    <div style="display:flex; flex-direction:column; gap:5px; margin-top:5px;">
+                        <input type="text" placeholder="رقم البطاقة (16 رقم)" style="padding:6px; background:#000; color:#fff; border:1px solid #333;">
+                        <div style="display:flex; gap:5px;">
+                            <input type="text" placeholder="MM/YY" style="width:50%; padding:6px; background:#000; color:#fff; border:1px solid #333;">
+                            <input type="password" placeholder="CVV" style="width:50%; padding:6px; background:#000; color:#fff; border:1px solid #333;">
+                        </div>
+                    </div>`;
+            }
+        }
 
-                const selectElement = document.getElementById('adminProductCategorySelect');
-                const previousSelection = selectElement.value;
-                selectElement.innerHTML = serverDB.categories.filter(c => c !== 'الكل').map(c => `<option value="${c}">${c}</option>`).join('');
-                if(previousSelection) selectElement.value = previousSelection;
+        function refreshDataStream() {
+            const products = JSON.parse(localStorage.getItem('alradi_products'));
+            const categories = JSON.parse(localStorage.getItem('alradi_categories'));
+            const users = JSON.parse(localStorage.getItem('alradi_users'));
+            const orders = JSON.parse(localStorage.getItem('alradi_orders'));
+            const revenue = JSON.parse(localStorage.getItem('alradi_revenue'));
 
-                const tabsWrapper = document.getElementById('categoryTabsWrapper');
-                tabsWrapper.innerHTML = serverDB.categories.map(c => `
-                    <button class="cat-btn ${selectedCategory === c ? 'active' : ''}" onclick="filterByCat('${c}')">${c}</button>
+            // إحصائيات لوحة الإدارة
+            document.getElementById('statUsersCount').innerText = users.length;
+            document.getElementById('statRevenueDay').innerText = revenue.day;
+            document.getElementById('statRevenueMonth').innerText = revenue.month;
+            document.getElementById('statRevenueYear').innerText = revenue.year;
+
+            // تحديث السلكت للأقسام بالمدير
+            const selectElement = document.getElementById('adminProductCategorySelect');
+            selectElement.innerHTML = categories.filter(c => c !== 'الكل').map(c => `<option value="${c}">${c}</option>`).join('');
+
+            // تحديث أقسام التصفح
+            const tabsWrapper = document.getElementById('categoryTabsWrapper');
+            tabsWrapper.innerHTML = categories.map(c => `
+                <button class="cat-btn ${selectedCategory === c ? 'active' : ''}" onclick="filterByCat('${c}')">${c}</button>
+            `).join('');
+
+            // بناء شبكة المنتجات
+            const gridContainer = document.getElementById('mainProductsGrid');
+            gridContainer.innerHTML = '';
+            
+            const filtered = products.filter(p => selectedCategory === 'الكل' || p.category === selectedCategory);
+            
+            filtered.forEach((product, idx) => {
+                const widgetKey = `widget_${selectedCategory}_${idx}`;
+                if(!cardWidgetQuantities[widgetKey]) cardWidgetQuantities[widgetKey] = 1;
+                const isOutOfStock = product.stock <= 0;
+
+                gridContainer.innerHTML += `
+                    <div class="product-card">
+                        ${isOutOfStock ? `<div class="stock-badge stock-out">غير متوفر ❌</div>` : `<div class="stock-badge stock-in">متوفر (${product.stock}) ✅</div>`}
+                        ${product.isOffer === 'yes' ? `<div class="offer-pulse-badge">عرض خاص 🔥</div>` : ''}
+                        <div class="image-wrapper"><img src="${product.img}"></div>
+                        <div class="product-meta">
+                            <h4 class="product-title">${product.name}</h4>
+                            <div class="spec-item">📋 المواصفات: ${product.specs}</div>
+                        </div>
+                        <div class="price-section">
+                            <span class="current-price">${product.price} SR</span>
+                        </div>
+                        <div class="quantity-controller">
+                            <button class="qty-action-btn" onclick="modifyWidgetCounter('${widgetKey}', 1)" ${isOutOfStock ? 'disabled':''}>➕</button>
+                            <span id="counter_display_${widgetKey}" style="font-weight: 900;">${cardWidgetQuantities[widgetKey]}</span>
+                            <button class="qty-action-btn" onclick="modifyWidgetCounter('${widgetKey}', -1)" ${isOutOfStock ? 'disabled':''}>➖</button>
+                        </div>
+                        <button class="action-button" onclick="commitToCart('${product.name}', ${product.price}, '${widgetKey}', ${product.stock})" ${isOutOfStock ? 'disabled' : ''}>
+                            ${isOutOfStock ? 'نفذت الكمية 🛑' : 'أضف للسلة 🛒'}
+                        </button>
+                    </div>`;
+            });
+
+            // لوحة أجهزة المدير المنتجات والمبيعات
+            if(isManagerSession) {
+                document.getElementById('adminProductsTableBody').innerHTML = products.map((p, originalIdx) => `
+                    <tr>
+                        <td><img src="${p.img}" style="width:35px; height:35px; object-fit:contain; background:#fff; border-radius:4px;"></td>
+                        <td>${p.name}</td>
+                        <td><span style="color:var(--primary-gold);">${p.category}</span></td>
+                        <td>${p.price} SR</td>
+                        <td>${p.isOffer === 'yes' ? 'عرض غامز' : 'عادي'}</td>
+                        <td><input type="number" value="${p.stock}" style="width:60px; background:#111; color:#fff; border:1px solid #333; text-align:center;" onchange="updateStockDirect(${originalIdx}, this.value)"></td>
+                        <td><button class="btn-sm" style="background:var(--danger-color);" onclick="triggerDeleteProduct(${originalIdx})">حذف</button></td>
+                    </tr>
                 `).join('');
 
-                const gridContainer = document.getElementById('mainProductsGrid');
-                gridContainer.innerHTML = '';
-                
-                const filtered = serverDB.products.filter(p => selectedCategory === 'الكل' || p.category === selectedCategory);
-                
-                filtered.forEach((product, idx) => {
-                    const discountApplied = product.discount > 0;
-                    const netPrice = discountApplied ? (product.price - (product.price * (product.discount / 100))) : product.price;
-                    const widgetKey = `widget_${selectedCategory}_${idx}`;
-                    
-                    if(!cardWidgetQuantities[widgetKey]) cardWidgetQuantities[widgetKey] = 1;
-                    
-                    const isOutOfStock = product.stock <= 0;
-
-                    gridContainer.innerHTML += `
-                        <div class="product-card">
-                            ${isOutOfStock ? `<div class="stock-badge stock-out">غير متوفر ❌</div>` : `<div class="stock-badge stock-in">متوفر (${product.stock}) ✅</div>`}
-                            ${discountApplied ? `<div class="discount-badge">خصم ${product.discount}%</div>` : ''}
-                            <div class="image-wrapper"><img src="${product.img}"></div>
-                            <div class="product-meta">
-                                <h4 class="product-title">${product.name}</h4>
-                                <div class="spec-item">🎨 اللون: ${product.color || 'حسب التوفر'}</div>
-                                <div class="spec-item">💡 المميزات: ${product.specs || 'جودة ملكية'}</div>
-                            </div>
-                            <div class="price-section">
-                                ${discountApplied ? `<span class="old-price">${product.price} SR</span>` : ''}
-                                <span class="current-price">${netPrice.toFixed(0)} SR</span>
-                            </div>
-                            <div class="quantity-controller">
-                                <button class="qty-action-btn" onclick="modifyWidgetCounter('${widgetKey}', 1)" ${isOutOfStock ? 'disabled':''}>➕</button>
-                                <span id="counter_display_${widgetKey}" style="font-weight: 900;">${cardWidgetQuantities[widgetKey]}</span>
-                                <button class="qty-action-btn" onclick="modifyWidgetCounter('${widgetKey}', -1)" ${isOutOfStock ? 'disabled':''}>➖</button>
-                            </div>
-                            <button class="action-button" onclick="commitToCart('${product.name}', ${netPrice}, '${widgetKey}', ${product.stock})" ${isOutOfStock ? 'disabled' : ''}>
-                                ${isOutOfStock ? 'نفذت الكمية 🛑' : 'أضف للسلة 🛒'}
-                            </button>
-                        </div>`;
-                });
-
-                if(isManagerSession) {
-                    const productsTableBody = document.getElementById('adminProductsTableBody');
-                    productsTableBody.innerHTML = serverDB.products.map((p, originalIdx) => `
-                        <tr>
-                            <td><img src="${p.img}" style="width:35px; height:35px; object-fit:contain; background:#fff; border-radius:4px;"></td>
-                            <td>${p.name}</td>
-                            <td><span style="color:var(--primary-gold);">${p.category}</span></td>
-                            <td>${p.price} SR</td>
-                            <td>%${p.discount || 0}</td>
-                            <td><input type="number" value="${p.stock}" style="width:60px; background:#111; color:#fff; border:1px solid #333; text-align:center;" onchange="updateStockDirect(${originalIdx}, this.value)"></td>
-                            <td><button class="btn-sm btn-delete" onclick="triggerDeleteProduct(${originalIdx})">حذف</button></td>
-                        </tr>
-                    `).join('');
-
-                    const liveOrdersBox = document.getElementById('adminLiveOrdersBox');
-                    if(serverDB.orders && serverDB.orders.length > 0) {
-                        liveOrdersBox.innerHTML = serverDB.orders.map((order, i) => `
-                            <div style="background: rgba(255,255,255,0.02); padding: 12px; border-radius: 12px; margin-bottom: 8px; border-right: 4px solid var(--success-color); text-align:right;">
-                                👤 <strong>العميل:</strong> ${order.fullName} (${order.user}) | 📞 ${order.whatsApp}<br>
-                                📍 <strong>العنوان:</strong> ${order.address} | 🌍 الشحن: ${order.shippingType}<br>
-                                📦 <strong>المشتريات:</strong> ${order.items}<br>
-                                💰 <strong>الفاتورة الصافية:</strong> <span style="color:var(--primary-gold); font-weight:900;">${order.total} SR</span>
-                            </div>`).join('');
-                    }
+                // عرض طلبات الفواتير المكتسبة
+                const liveOrdersBox = document.getElementById('adminLiveOrdersBox');
+                if(orders.length > 0) {
+                    liveOrdersBox.innerHTML = orders.map((order) => `
+                        <div style="background: rgba(255,255,255,0.02); padding: 12px; border-radius: 12px; margin-bottom: 8px; border-right: 4px solid var(--success-color); text-align:right;">
+                            🆔 <strong>الفاتورة:</strong> ${order.invoiceId} | 👤 <strong>العميل:</strong> ${order.fullName} (${order.user})<br>
+                            📞 <strong>الواتساب:</strong> ${order.whatsApp} | 💵 <strong>طريقة الدفع:</strong> ${order.paymentMethodText}<br>
+                            📦 <strong>المشتريات:</strong> ${order.items}<br>
+                            💰 <strong>المبلغ الصافي المضاف للأرباح:</strong> <span style="color:var(--primary-gold); font-weight:900;">${order.total} SR</span>
+                        </div>`).join('');
+                } else {
+                    liveOrdersBox.innerHTML = "لا توجد فواتير مبيعات حالياً.";
                 }
-            } catch(err) {}
+
+                // تعبئة سلكت المحادثات للمدير بالزبائن المتفاعلين
+                const chatSelect = document.getElementById('adminTargetChatUserSelect');
+                const chats = JSON.parse(localStorage.getItem('alradi_chats'));
+                const chatUsers = Object.keys(chats);
+                if (chatUsers.length > 0) {
+                    chatSelect.innerHTML = chatUsers.map(u => `<option value="${u}">${u}</option>`).join('');
+                } else {
+                    chatSelect.innerHTML = `<option value="">لا توجد محادثات نشطة</option>`;
+                }
+                loadAdminChatWithSelectedUser();
+                searchUsersDatabase();
+            }
         }
 
         function filterByCat(categoryName) { selectedCategory = categoryName; refreshDataStream(); }
@@ -516,12 +613,12 @@
 
         function applyCoupon() {
             const code = document.getElementById('couponInput').value.trim();
-            if(code === 'ALRADI20' || code === 'alradi20') {
+            if(code.toLowerCase() === 'alradi20') {
                 activeCouponDiscount = 20;
                 alert('🎉 تم تفعيل قسيمة الخصم بنجاح! خصم 20 ريال.');
                 calculateTotalWithShipping();
             } else {
-                alert('❌ كود الخصم غير صحيح أو منتهي الصلاحية.');
+                alert('❌ كود الخصم غير صحيح.');
             }
         }
 
@@ -549,53 +646,71 @@
                 return;
             }
             container.innerHTML = userShoppingCart.map((item, idx) => `
-                <div class="cart-row" style="display:flex; justify-content:space-between; background:#090a0d; padding:10px; margin-bottom:5px; border-radius:8px;">
+                <div style="display:flex; justify-content:space-between; background:#090a0d; padding:10px; margin-bottom:5px; border-radius:8px;">
                     <div><h4>${item.name}</h4><span style="color:var(--primary-gold);">${item.price} SR</span></div>
                     <div><span style="font-weight:bold; margin-right:15px;">الكمية: ${item.qty}</span>
-                    <button class="btn-sm btn-delete" onclick="userShoppingCart.splice(${idx},1); renderCartUI();">حذف</button></div>
+                    <button class="btn-sm" style="background:var(--danger-color);" onclick="userShoppingCart.splice(${idx},1); renderCartUI();">حذف</button></div>
                 </div>`).join('');
             calculateTotalWithShipping();
         }
 
-        async function submitOrderToAdmin() {
+        function submitOrderToAdmin() {
             const fullName = document.getElementById('orderFullName').value.trim();
             const whatsApp = document.getElementById('orderWhatsApp').value.trim();
             const phone = document.getElementById('orderPhone').value.trim();
             const address = document.getElementById('orderAddress').value.trim();
             const shippingType = document.getElementById('orderCountry').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
 
-            if(!fullName || !whatsApp || !address) return alert('يرجى ملء الاسم الرباعي ورقم الواتساب والعنوان بالتفصيل لإصدار الفاتورة وتجهيز الشحن!');
+            if(!fullName || !whatsApp || !address) return alert('يرجى ملء استمارة الشحن كاملة!');
             if(userShoppingCart.length === 0) return alert('سلتك فارغة!');
 
             const finalPrice = calculateTotalWithShipping();
             const orderInvoiceId = 'RAD-' + Math.floor(100000 + Math.random() * 900000);
             const detailedItems = userShoppingCart.map(i => `${i.name} (عدد ${i.qty})`).join(' + ');
 
+            let paymentMethodText = "الدفع عند الاستلام";
+            if (paymentMethod === 'alrajhi') paymentMethodText = "تحويل بنك الراجحي";
+            if (paymentMethod === 'card') paymentMethodText = "بطاقة ائتمانية";
+
             const orderPayload = {
                 invoiceId: orderInvoiceId,
                 user: authenticatedUser,
                 fullName, whatsApp, phone, address, shippingType,
-                items: detailedItems, total: finalPrice.toFixed(0)
+                items: detailedItems, total: finalPrice.toFixed(0),
+                paymentMethodText: paymentMethodText
             };
 
-            // إرسال البيانات للسيرفر
-            try {
-                await fetch('/api/order', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(orderPayload)
-                });
-            } catch(e){}
+            // 1. خصم الكميات من المخزون وتحديث الأرباح
+            let products = JSON.parse(localStorage.getItem('alradi_products'));
+            userShoppingCart.forEach(cartItem => {
+                let p = products.find(prod => prod.name === cartItem.name);
+                if (p) p.stock = p.stock - cartItem.qty;
+            });
+            localStorage.setItem('alradi_products', JSON.stringify(products));
+
+            // 2. تحديث الأرباح الدائمة
+            let revenue = JSON.parse(localStorage.getItem('alradi_revenue'));
+            revenue.day += finalPrice;
+            revenue.month += finalPrice;
+            revenue.year += finalPrice;
+            localStorage.setItem('alradi_revenue', JSON.stringify(revenue));
+
+            // 3. حفظ الفاتورة بالسيستم
+            let orders = JSON.parse(localStorage.getItem('alradi_orders'));
+            orders.push(orderPayload);
+            localStorage.setItem('alradi_orders', JSON.stringify(orders));
 
             closeModal('cartModal');
             renderInvoiceHTML(orderPayload);
             openModal('invoiceModal');
 
-            // تفعيل نظام الدردشة والرد التلقائي الأسطوري فورا للعميل
+            // 4. تشغيل نظام الدردشة المباشرة والرد التلقائي الفوري باسم العميل
             triggerAutomaticServerChat(fullName, orderInvoiceId, finalPrice);
 
             userShoppingCart = [];
             renderCartUI();
+            refreshDataStream();
         }
 
         function renderInvoiceHTML(data) {
@@ -603,116 +718,21 @@
             area.innerHTML = `
                 <div class="invoice-box">
                     <div class="invoice-header">
-                        <div class="invoice-logo"></div>
-                        <h2>مجموعة متاجر الرعدي أونلاين الفاخرة</h2>
+                        <svg class="falcon-svg" viewBox="0 0 100 100" style="margin:0 auto; display:block;">
+                            <path d="M50,15 C40,30 20,35 5,45 C25,50 40,45 50,60 C60,45 75,50 95,45 C80,35 60,30 50,15 Z" fill="#ffb300"/>
+                        </svg>
+                        <h2 style="margin-top:5px;">مجموعة متاجر الرعدي أونلاين الفاخرة</h2>
                         <p style="font-size:11px; color:#555;">وثيقة بيع وفاتورة معتمدة رقم: ${data.invoiceId}</p>
                     </div>
                     <p><strong>تاريخ الإصدار:</strong> ${new Date().toLocaleDateString('ar-SA')}</p>
                     <p><strong>اسم العميل الرباعي:</strong> ${data.fullName}</p>
                     <p><strong>رقم الواتساب / الهاتف:</strong> ${data.whatsApp} / ${data.phone || 'لا يوجد'}</p>
-                    <p><strong>عنوان التوصيل المعتمد:</strong> ${data.address} (${data.shippingType === 'international' ? 'شحن خارجي دولي' : 'شحن داخلي مجاني'})</p>
+                    <p><strong>طريقة السداد المعتمدة:</strong> ${data.paymentMethodText}</p>
+                    <p><strong>العنوان:</strong> ${data.address} (${data.shippingType === 'international' ? 'شحن خارجي دولي' : 'شحن داخلي شامل التوصيل'})</p>
                     
                     <table class="invoice-table">
                         <thead><tr><th>البيان والمشتريات</th><th>الإجمالي بالريال</th></tr></thead>
                         <tbody><tr><td>${data.items}</td><td><strong>${data.total} SR</strong></td></tr></tbody>
                     </table>
                     <div style="text-align:center; margin-top:10px; font-weight:900; font-size:16px;">المجموع الصافي المدفوع: ${data.total} ريال سعودي</div>
-                    
-                    <div class="invoice-terms">
-                        ⚠️ شروط المتجر الصارمة والقانونية:<br>
-                        1. يُمنع منعاً باتاً استرجاع السلع نقداً بعد الشراء لأي سبب كان.<br>
-                        2. يحق للزبون استبدال المنتج بمنتج آخر من المتجر خلال 3 أيام فقط، بشرط أن يكون الخلل مصنعياً وليس سوء استخدام من قِبل العميل.<br>
-                        3. أي كشط أو تلف في ملصقات المنتج يُلغي الضمان تماماً.
-                    </div>
-                </div>`;
-        }
-
-        function triggerAutomaticServerChat(name, invoiceId, price) {
-            const chatBody = document.getElementById('chatBodyContainer');
-            document.getElementById('chatAlert').style.display = 'block'; // تنبيه بوجود رسالة جديدة
-            
-            setTimeout(() => {
-                chatBody.innerHTML += `
-                    <div class="chat-msg client">لقد قمت بإصدار الفاتورة وتأكيد الطلب رقم ${invoiceId} بنجاح.</div>
-                    <div class="chat-msg server">
-                        🤖 <strong>رد تلقائي ذكي من نظام الرعدي:</strong><br>
-                        أهلاً بك يا سيد ${name}، تم استلام طلبك ومشترياتك بنجاح وجاري مراجعتها من قبل المدير العام.<br>
-                        💳 الفاتورة الإجمالية: ${price} SR.<br>
-                        🚚 <strong>موعد التوصيل المتوقع:</strong> خلال 24 إلى 48 ساعة فقط كحد أقصى سيصلك المندوب لعنوانك. شكراً لتسوقك معنا!
-                    </div>`;
-                chatBody.scrollTop = chatBody.scrollHeight;
-            }, 1500);
-        }
-
-        function sendClientChatMessage() {
-            const text = document.getElementById('chatMessageInput').value.trim();
-            if(!text) return;
-            const chatBody = document.getElementById('chatBodyContainer');
-            chatBody.innerHTML += `<div class="chat-msg client">${text}</div>`;
-            document.getElementById('chatMessageInput').value = '';
-            chatBody.scrollTop = chatBody.scrollHeight;
-            
-            // محاكاة وصولها للوحة تحكم المدير
-            const adminLog = document.getElementById('adminChatLogContainer');
-            adminLog.innerHTML += `<p style="margin-bottom:5px; border-bottom:1px solid #222; padding-bottom:3px;">👤 <strong>${authenticatedUser}:</strong> ${text}</p>`;
-        }
-
-        function sendAdminChatMessage() {
-            const text = document.getElementById('adminChatResponseInput').value.trim();
-            if(!text) return;
-            const chatBody = document.getElementById('chatBodyContainer');
-            chatBody.innerHTML += `<div class="chat-msg server">👑 <strong>المدير:</strong> ${text}</div>`;
-            document.getElementById('adminChatResponseInput').value = '';
-            closeModal('adminModal');
-            openModal('chatModal');
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
-
-        async function updateStockDirect(idx, newQty) {
-            try {
-                await fetch('/api/update-stock', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ index: idx, stock: parseInt(newQty) })
-                });
-            } catch(e){}
-            refreshDataStream();
-        }
-
-        async function createCategory() {
-            const name = document.getElementById('adminNewCatName').value.trim();
-            if(!name) return;
-            try {
-                await fetch('/api/add-category', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name }) });
-            } catch(e){}
-            document.getElementById('adminNewCatName').value = ''; refreshDataStream();
-        }
-
-        async function createNewProduct() {
-            const category = document.getElementById('adminProductCategorySelect').value;
-            const name = document.getElementById('adminProdName').value.trim();
-            const price = parseFloat(document.getElementById('adminProdPrice').value);
-            const discount = parseFloat(document.getElementById('adminProdDiscount').value) || 0;
-            const stock = parseInt(document.getElementById('adminProdStock').value) || 5;
-            const color = document.getElementById('adminProdColor').value.trim();
-            const specs = document.getElementById('adminProdSpecs').value.trim();
-            const img = document.getElementById('adminProdImg').value.trim();
-
-            if(!name || !price) return alert('الاسم والسعر مطلوبان!');
-            try {
-                await fetch('/api/add-product', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ category, name, price, discount, stock, color, specs, img }) });
-            } catch(e){}
-            alert('📡 تم قيد وطرح المنتج بالمخزون والموقع!');
-            refreshDataStream();
-        }
-
-        async function triggerDeleteProduct(index) {
-            if(!confirm('هل تود حذف هذا المنتج نهائياً؟')) return;
-            try {
-                await fetch('/api/delete-product', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ index }) });
-            } catch(e){}
-            refreshDataStream();
-        }
-    </script>
-</body>
-</html>
+          
