@@ -99,13 +99,85 @@
         .admin-nav-btn:hover { background: var(--success-color); color: #000; }
         .user-badge { background: rgba(255, 179, 0, 0.07); border: 1px solid var(--primary-gold); padding: 6px 14px; border-radius: 50px; font-size: 13px; font-weight: 700; color: var(--primary-gold); }
 
+        /* --- أيقونة السلة العائمة الجديدة الفاخرة --- */
+        .floating-cart-trigger {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, #ffe082, var(--primary-gold));
+            color: #000;
+            border: none;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            box-shadow: var(--neon-gold-glow), 0 10px 25px rgba(0,0,0,0.5);
+            cursor: pointer;
+            z-index: 1500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 26px;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .floating-cart-trigger:hover {
+            transform: scale(1.1) rotate(-5deg);
+        }
+        .cart-badge-count {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: var(--danger-color);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 900;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--bg-dark-heavy);
+        }
+
+        /* --- نافذة السلة المنبثقة الفاخرة --- */
+        .cart-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2500;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        .cart-modal-card {
+            background: var(--bg-card-dark);
+            border: 2px solid var(--primary-gold);
+            box-shadow: var(--neon-gold-glow);
+            padding: 25px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 550px;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: modalFadeIn 0.3s ease;
+        }
+        @keyframes modalFadeIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
         .category-container { padding: 20px 4% 10px; }
         .category-title { font-size: 17px; font-weight: 800; margin-bottom: 15px; border-right: 4px solid var(--primary-gold); padding-right: 10px; }
         .category-tabs { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
         .cat-btn { padding: 10px 24px; background: var(--bg-card-dark); border: 1px solid #252936; color: #fff; border-radius: 50px; cursor: pointer; font-weight: 700; white-space: nowrap; }
         .cat-btn.active, .cat-btn:hover { background: linear-gradient(135deg, #ffe082, var(--primary-gold)); color: #000; font-weight: 900; box-shadow: var(--neon-gold-glow); }
 
-        .products-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; padding: 0 4%; }
+        .products-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; padding: 20px 4%; }
         @media (max-width: 1400px) { .products-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
         @media (max-width: 1024px) { .products-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
         @media (max-width: 768px) { 
@@ -132,7 +204,6 @@
         .qty-action-btn { width: 28px; height: 28px; background: #1f2230; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
         .action-button { width: 100%; padding: 10px; background: linear-gradient(135deg, #ffe082, var(--primary-gold)); color: #000; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; }
 
-        .cart-section { background: var(--bg-card-dark); border: 1px solid #232736; padding: 20px; border-radius: 20px; margin: 30px 4%; }
         .cart-row { display: flex; justify-content: space-between; align-items: center; background: #090a0d; padding: 12px; border-radius: 12px; margin-bottom: 10px; }
 
         /* --- لوحة تحكم متطورة وكبيرة الحجم --- */
@@ -148,7 +219,6 @@
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; background: #11131a; border: 1px solid #232736; border-radius: 8px; color: #fff; outline: none; }
         .form-group input:focus { border-color: var(--success-color); }
 
-        /* جداول التحكم المتطورة للإدارة والتعديل والحذف */
         .management-table-wrapper { overflow-x: auto; margin-top: 15px; background: #0d1117; border-radius: 12px; border: 1px solid #21262d; }
         .mng-table { width: 100%; border-collapse: collapse; text-align: right; font-size: 13px; }
         .mng-table th, .mng-table td { padding: 12px; border-bottom: 1px solid #21262d; }
@@ -158,7 +228,6 @@
         .btn-edit { background: var(--info-color); }
         .btn-delete { background: var(--danger-color); }
 
-        /* نافذة تعديل فرعية عائمة */
         .edit-popup-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2500; justify-content:center; align-items:center; }
         .edit-popup-card { background:#161a22; border:2px solid var(--info-color); padding:25px; border-radius:20px; width:90%; max-width:450px; }
 
@@ -168,7 +237,6 @@
 </head>
 <body>
 
-    <!-- شريط الإعلانات اللانهائي البطيء والانسيابي بدون أي توقف وثواني اختفاء -->
     <div class="marquee-container">
         <div class="marquee-wrapper">
             <div class="marquee-text">⚡ عروض ملكية فاخرة في متجر <span>الرعدي أونلاين</span> خصومات كبرى تصل إلى 50% على الهواتف والأحذية والعطور العالمية ⚡ شحن وتوصيل فوري لكافة المناطق ⚡ تسوق آمن وعالي الجودة 100% ⚡ &nbsp;&nbsp;&nbsp;&nbsp;</div>
@@ -176,7 +244,6 @@
         </div>
     </div>
 
-    <!-- بوابة الدخول -->
     <div id="authContainer" class="auth-overlay">
         <div class="auth-panel">
             <h2 id="authHeading" style="margin-bottom: 20px; font-weight: 900;">بوابة دخول <span>الرعدي</span></h2>
@@ -191,7 +258,6 @@
         </div>
     </div>
 
-    <!-- المتجر الرئيسي -->
     <div id="storeContainer" style="display: none;">
         <nav class="global-navbar">
             <div class="brand-logo"><div class="falcon-logo"></div><h1>الرعدي <span>أونلاين</span></h1></div>
@@ -208,24 +274,32 @@
 
         <main class="products-grid" id="mainProductsGrid"></main>
 
-        <section class="cart-section">
-            <h3 style="color: var(--primary-gold); margin-bottom: 15px; font-weight: 900;">🛒 سلة المشتريات الحية</h3>
-            <div id="cartRowsContainer">السلة خالية، ابدأ بالتسوق الآن!</div>
-            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #232736; display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 16px; font-weight: 800;">المجموع النهائي:</span>
-                <span style="font-size: 22px; font-weight: 900; color: var(--primary-gold);"><span id="cartTotalSum">0</span> SR</span>
-            </div>
-            <button class="action-button" style="margin-top: 15px; max-width: 280px; display: block; margin-right: auto;" onclick="submitOrderToAdmin()">تأكيد وإرسال الطلب للمدير 🚀</button>
-        </section>
+        <button class="floating-cart-trigger" onclick="openCartModal()">
+            🛒
+            <div class="cart-badge-count" id="floatingCartCount">0</div>
+        </button>
 
-        <!-- لوحة التحكم العملاقة والمحدثة بالكامل -->
+        <div id="cartModal" class="cart-modal-overlay" onclick="closeCartModalOutside(event)">
+            <div class="cart-modal-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #232736; padding-bottom: 10px;">
+                    <h3 style="color: var(--primary-gold); font-weight: 900;">🛒 سلة المشتريات الحية</h3>
+                    <button style="background: var(--danger-color); color: #fff; border: none; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-weight: bold;" onclick="closeCartModal()">إغلاق ✖</button>
+                </div>
+                <div id="cartRowsContainer">السلة خالية، ابدأ بالتسوق الآن!</div>
+                <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #232736; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 16px; font-weight: 800;">المجموع النهائي:</span>
+                    <span style="font-size: 22px; font-weight: 900; color: var(--primary-gold);"><span id="cartTotalSum">0</span> SR</span>
+                </div>
+                <button class="action-button" style="margin-top: 20px;" onclick="submitOrderToAdmin()">تأكيد وإرسال الطلب للمدير 🚀</button>
+            </div>
+        </div>
+
         <div id="adminModal" class="admin-modal-overlay">
             <section class="admin-dashboard">
                 <button class="close-admin-btn" onclick="closeAdminModal()">إغلاق لوحة التحكم ✖</button>
                 <h2 style="color: var(--success-color); font-weight: 900; border-bottom: 1px solid rgba(0,230,118,0.2); padding-bottom: 10px; margin-bottom: 15px;">🛠️ مركز إدارة متجر الرعدي الشامل (إضافة، تعديل، حذف)</h2>
                 
                 <div class="dashboard-grid">
-                    <!-- بوكس الأقسام المتطور -->
                     <div class="dashboard-box">
                         <h3 style="color: var(--primary-gold); margin-bottom: 12px;">🌐 إدارة الأقسام والفئات</h3>
                         <div class="form-group"><label>اسم القسم الجديد</label><input type="text" id="adminNewCatName" placeholder="مثال: أحذية"></div>
@@ -237,7 +311,6 @@
                         </div>
                     </div>
 
-                    <!-- بوكس بث منتج جديد -->
                     <div class="dashboard-box">
                         <h3 style="color: var(--primary-gold); margin-bottom: 12px;">🚀 بث منتج جديد بالمتجر</h3>
                         <div class="form-group"><label>اختر القسم المخصص</label><select id="adminProductCategorySelect"></select></div>
@@ -253,7 +326,6 @@
                     </div>
                 </div>
 
-                <!-- جدول إدارة وتعديل وحذف المنتجات بالكامل -->
                 <div class="dashboard-box" style="margin-top: 20px;">
                     <h3 style="color: var(--info-color); margin-bottom: 12px;">📦 جدول التحكم الشامل بالمنتجات (تعديل الأسعار والمواصفات أو الحذف)</h3>
                     <div class="management-table-wrapper">
@@ -266,7 +338,6 @@
                     </div>
                 </div>
 
-                <!-- الفواتير -->
                 <div class="dashboard-box" style="margin-top: 20px;">
                     <h3 style="color: var(--success-color); margin-bottom: 12px;">📥 الفواتير والطلبات المستلمة</h3>
                     <div id="adminLiveOrdersBox" style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">في انتظار فواتير المشترين...</div>
@@ -274,7 +345,6 @@
             </section>
         </div>
 
-        <!-- نافذة تعديل بيانات المنتج الفرعية السريعة -->
         <div id="editProductPopup" class="edit-popup-overlay">
             <div class="edit-popup-card">
                 <h3 style="color: var(--info-color); margin-bottom: 15px; text-align: right;">✏️ تعديل بيانات المنتج الحالية</h3>
@@ -358,6 +428,11 @@
             setInterval(refreshDataStream, 4000);
         }
 
+        /* --- وظائف نافذة السلة الجديدة --- */
+        function openCartModal() { document.getElementById('cartModal').style.display = 'flex'; }
+        function closeCartModal() { document.getElementById('cartModal').style.display = 'none'; }
+        function closeCartModalOutside(e) { if(e.target.id === 'cartModal') closeCartModal(); }
+
         function openAdminModal() {
             if(!isManagerSession) return alert('غير مسموح لك بالدخول!');
             document.getElementById('adminModal').style.display = 'flex';
@@ -370,19 +445,16 @@
                 const response = await fetch('/api/data');
                 const serverDB = await response.json();
                 
-                // تحديث قائمة اختيار القسم داخل لوحة التحكم لمنتج جديد
                 const selectElement = document.getElementById('adminProductCategorySelect');
                 const previousSelection = selectElement.value;
                 selectElement.innerHTML = serverDB.categories.filter(c => c !== 'الكل').map(c => `<option value="${c}">${c}</option>`).join('');
                 if(previousSelection) selectElement.value = previousSelection;
 
-                // تحديث أزرار الأقسام للزبائن بالخارج
                 const tabsWrapper = document.getElementById('categoryTabsWrapper');
                 tabsWrapper.innerHTML = serverDB.categories.map(c => `
                     <button class="cat-btn ${selectedCategory === c ? 'active' : ''}" onclick="filterByCat('${c}')">${c}</button>
                 `).join('');
 
-                // عرض المنتجات بالواجهة للزبائن
                 const gridContainer = document.getElementById('mainProductsGrid');
                 gridContainer.innerHTML = '';
                 
@@ -421,9 +493,7 @@
                         </div>`;
                 });
 
-                // تحديث جداول لوحة التحكم التابعة للمدير (تعديل وحذف الأقسام والمنتجات)
                 if(isManagerSession) {
-                    // جدول الأقسام الحالية
                     const catsTableBody = document.getElementById('adminCatsTableBody');
                     catsTableBody.innerHTML = serverDB.categories.filter(c => c !== 'الكل').map(c => `
                         <tr>
@@ -435,7 +505,6 @@
                         </tr>
                     `).join('');
 
-                    // جدول المنتجات الكامل للتحكم بالتعديل والحذف
                     const productsTableBody = document.getElementById('adminProductsTableBody');
                     productsTableBody.innerHTML = serverDB.products.map((p, originalIdx) => `
                         <tr>
@@ -451,7 +520,6 @@
                         </tr>
                     `).join('');
 
-                    // لوحة الطلبات المستلمة
                     const liveOrdersBox = document.getElementById('adminLiveOrdersBox');
                     if(serverDB.orders.length > 0) {
                         liveOrdersBox.innerHTML = serverDB.orders.map((order, i) => `
@@ -494,6 +562,11 @@
 
         function renderCartUI() {
             const container = document.getElementById('cartRowsContainer');
+            
+            // تحديث العدد الإجمالي فوق زر السلة العائم
+            const totalItemsCount = userShoppingCart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('floatingCartCount').innerText = totalItemsCount;
+
             if(userShoppingCart.length === 0) {
                 container.innerHTML = "السلة خالية، ابدأ بالتسوق الآن!";
                 document.getElementById('cartTotalSum').innerText = "0";
@@ -526,10 +599,8 @@
                 body: JSON.stringify({ user: authenticatedUser, items: detailedItemsString, total: fullInvoicePrice.toFixed(0) })
             });
             alert('🚀 تم إرسال طلبك النهائي بنجاح!');
-            userShoppingCart = []; renderCartUI();
+            userShoppingCart = []; renderCartUI(); closeCartModal();
         }
-
-        // ================= عمليات التحكم الخاصة بالمدير (CRUD APIs) =================
 
         async function createCategory() {
             const name = document.getElementById('adminNewCatName').value.trim();
@@ -574,7 +645,6 @@
             alert('📡 تم نشر المنتج!');
         }
 
-        // فتح نافذة تعديل بيانات المنتج المختار
         function openEditProductPopup(index, productData) {
             document.getElementById('editProductIndex').value = index;
             document.getElementById('editProdName').value = productData.name;
@@ -588,7 +658,6 @@
 
         function closeEditPopup() { document.getElementById('editProductPopup').style.display = 'none'; }
 
-        // حفظ تعديل بيانات المنتج عبر الـ API
         async function saveProductEdits() {
             const index = document.getElementById('editProductIndex').value;
             const name = document.getElementById('editProdName').value.trim();
@@ -611,7 +680,6 @@
             alert('✏️ تم تحديث بيانات المنتج بنجاح!');
         }
 
-        // حذف المنتج نهائياً من قاعدة البيانات
         async function triggerDeleteProduct(index) {
             if(!confirm('هل تود حذف هذا المنتج نهائياً من المتجر؟')) return;
             await fetch('/api/delete-product', {
